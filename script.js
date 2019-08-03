@@ -26,7 +26,6 @@ let HEIGHT;
 
 
 const changeImg = (imgName) => {
-  console.log(imgName);
   origImgElt.src = `${imgName}/${imgName}_100.jpg`;
   img80Elt.src = `${imgName}/${imgName}_80.jpg`;
   img60Elt.src = `${imgName}/${imgName}_60.jpg`;
@@ -56,8 +55,8 @@ btnBird.addEventListener("click", (e) => {
 
 const changeZoom = (newZoom) => {
   ZOOM = newZoom;
-  WIDTH = 640*ZOOM;
-  HEIGHT = 480*ZOOM;
+  WIDTH = origImgElt.width*ZOOM;
+  HEIGHT = origImgElt.height*ZOOM;
   zoomImgElts.forEach((elt) => {
     elt.style.width = `${WIDTH}px`;
     elt.style.height = `${HEIGHT}px`;
@@ -94,5 +93,8 @@ document.body.addEventListener("mousemove", (e) => {
   //console.log(`(${x}, ${y})`);
 })
 
-changeZoom(1)
-changeImg("sunset");
+changeImg("flowers");
+changeZoom(1);
+window.addEventListener('resize', () => {
+  changeZoom(ZOOM);
+});
