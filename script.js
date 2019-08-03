@@ -7,11 +7,52 @@ const btnZoom3 = document.querySelector("#zoom3");
 const btnZoom4 = document.querySelector("#zoom4");
 const btnZoom6 = document.querySelector("#zoom6");
 
+const btnSunset = document.querySelector("#sunsetBtn");
+const btnFish = document.querySelector("#fishBtn");
+const btnBird = document.querySelector("#birdBtn");
+const btnPlanet = document.querySelector("#planetBtn");
+const btnFlowers = document.querySelector("#flowersBtn");
+
+const img80Elt = document.querySelector("#img_80");
+const img60Elt = document.querySelector("#img_60");
+const img40Elt = document.querySelector("#img_40");
+const img20Elt = document.querySelector("#img_20");
+
 let x;
 let y;
 let ZOOM;
 let WIDTH;
 let HEIGHT;
+
+
+const changeImg = (imgName) => {
+  console.log(imgName);
+  origImgElt.src = `${imgName}/${imgName}_100.jpg`;
+  img80Elt.src = `${imgName}/${imgName}_80.jpg`;
+  img60Elt.src = `${imgName}/${imgName}_60.jpg`;
+  img40Elt.src = `${imgName}/${imgName}_40.jpg`;
+  img20Elt.src = `${imgName}/${imgName}_20.jpg`;
+}
+
+btnSunset.addEventListener("click", (e) => {
+  changeImg("sunset");
+});
+
+btnFlowers.addEventListener("click", (e) => {
+  changeImg("flowers");
+});
+
+btnFish.addEventListener("click", (e) => {
+  changeImg("fish");
+});
+
+btnPlanet.addEventListener("click", (e) => {
+  changeImg("planet");
+});
+
+btnBird.addEventListener("click", (e) => {
+  changeImg("bird");
+});
 
 const changeZoom = (newZoom) => {
   ZOOM = newZoom;
@@ -54,3 +95,4 @@ document.body.addEventListener("mousemove", (e) => {
 })
 
 changeZoom(1)
+changeImg("sunset");
