@@ -1,3 +1,5 @@
+//Grab all the HTML elements I'll need later
+
 const origImgElt = document.querySelector("#orig-img");
 const zoomImgElts = document.querySelectorAll(".zoom-img");
 
@@ -18,13 +20,16 @@ const img60Elt = document.querySelector("#img_60");
 const img40Elt = document.querySelector("#img_40");
 const img20Elt = document.querySelector("#img_20");
 
+//--------
+//Some variables that get used in functions below.
+//Defined here so they're not re-defined everytime the mouseMove event happens
 let x;
 let y;
 let ZOOM;
 let WIDTH;
 let HEIGHT;
 
-
+//Function to change the images when you click the img buttons
 const changeImg = (imgName) => {
   origImgElt.src = `${imgName}/${imgName}_100.jpg`;
   img80Elt.src = `${imgName}/${imgName}_80.jpg`;
@@ -33,6 +38,7 @@ const changeImg = (imgName) => {
   img20Elt.src = `${imgName}/${imgName}_20.jpg`;
 }
 
+//Event listeners for when you click img buttons
 btnSunset.addEventListener("click", (e) => {
   changeImg("sunset");
 });
@@ -52,7 +58,9 @@ btnPlanet.addEventListener("click", (e) => {
 btnBird.addEventListener("click", (e) => {
   changeImg("bird");
 });
+//---------------
 
+//Function for changing the zoom when you click a zoom button
 const changeZoom = (newZoom) => {
   ZOOM = newZoom;
   WIDTH = origImgElt.width*ZOOM;
@@ -63,6 +71,7 @@ const changeZoom = (newZoom) => {
   });
 }
 
+//Event listeners for clicking zoom buttons
 btnZoom1.addEventListener("click", (e) => {
   changeZoom(1);
 });
@@ -82,10 +91,14 @@ btnZoom4.addEventListener("click", (e) => {
 btnZoom6.addEventListener("click", (e) => {
   changeZoom(6);
 });
+//-------
 
+//Update image locations when mouse moves
 document.body.addEventListener("mousemove", (e) => {
+  //Stole this from a stackOverflow post
   x = e.pageX - origImgElt.offsetLeft;
   y = e.pageY - origImgElt.offsetTop;
+  //Update each img element
   zoomImgElts.forEach((elt) => {
     elt.style.left = `-${x*ZOOM}px`;
     elt.style.top = `-${y*ZOOM}px`;  
@@ -93,8 +106,14 @@ document.body.addEventListener("mousemove", (e) => {
   //console.log(`(${x}, ${y})`);
 })
 
+//Initial settings
 changeImg("flowers");
 changeZoom(1);
+
+//When window is resized, it changes dimensions of source image (since website is responsive)
+//So, need to update coordinate references to new source img dimensions
+//The end result isn't obvious below, but within changeZoom, the img.width and img.height has been updated
+//and that's where it matters.
 window.addEventListener('resize', () => {
   changeZoom(ZOOM);
 });
